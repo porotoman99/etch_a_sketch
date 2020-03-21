@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Etch-A-Sketch
+		</title>
+	</head>
+	<body>
+		<button onclick="clearGrid()">Clear</button>
+		<br><br>
+		<div id="container">
+
+		</div>
+	</body>
+</html>
+<script>
+	const divContainer = document.querySelector("#container");
+	createGrid(16 , 16);
+
+	function createGrid(x)
+	{
+		divContainer.innerHTML = "";
+
+		const divCell = document.createElement("div");
+		divCell.style.height = (256 / x) + "px";
+		divCell.style.width = (256 / x) + "px";
+		divCell.style.margin = "0px";
+		divCell.style.backgroundColor = "white";
+		divCell.style.float = "left";
+		divCell.classList.add("cell");
+
+		const divRow = document.createElement("div");
+		divRow.style.margin = "0px";
+		divRow.style.padding = "0px";
+		divRow.style.height = (256 / x) + "px";
+		divRow.style.width =  "256px";
+
+		divContainer.style.border = "solid red 25px";
+		divContainer.style.borderRadius = "25px";
+		divContainer.style.display = "inline-block";
+		divContainer.style.padding = "0px";
+
+		for(let i = 0 ; i < x ; i++)
+		{
+			divRow.appendChild(divCell.cloneNode(true));
+		}
+		for(let i = 0 ; i < x ; i++)
+		{
+			divContainer.appendChild(divRow.cloneNode(true));
+		}
+
+		const cells = document.querySelectorAll(".cell");
+		cells.forEach(cell => cell.addEventListener("mouseenter" , divHover));
+	}
+
+	function clearGrid()
+	{
+		console.log("clearGrid");
+		let x = prompt("How wide?");
+		createGrid(x);
+	}
+	
+	function divHover(e)
+	{
+		this.style.backgroundColor = "black";	
+	}
+</script>
